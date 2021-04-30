@@ -41,3 +41,31 @@ h1 {
   cursor: pointer;
   background-color: #ddd;
 }
+
+.gameboard h1 {
+  grid-column: 1 / 4;
+  grid-row: 1;
+  display: block;
+  margin-top: auto;
+}
+
+.btn {
+  padding: 10px 30px;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  font-size: 1rem;
+}
+
+#btn-reset {
+  margin-bottom: auto;
+  grid-column: 2;
+}
+
+.btn:hover {
+  background-color: #122;
+  transform: scale(1.03);
+  cursor: pointer;
+}
