@@ -1,3 +1,12 @@
+let controller = (function gameboardController() {
+  let mainMenu = document.querySelector(".menu");
+  let playButton = document.querySelector(".btn-play");
+
+  playButton.addEventListener("click", () => {
+    mainMenu.hidden = true;
+  });
+})();
+
 // Create gameboard and add all associated event listeners
 let gameboard = (function createGameboard() {
   let counter = 0;
