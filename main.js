@@ -69,7 +69,7 @@ let gameboard = (function createGameboard() {
   }
 
   // Mark clicked square if active
-  function mark() {
+  function mark(e) {
     document.querySelector(".action-prompt").innerText =
       (counter + 1) % 2 === 0
         ? player1.getName() + "'s turn."
@@ -79,16 +79,19 @@ let gameboard = (function createGameboard() {
     this.innerText = counter % 2 === 0 ? player1.getMark() : player2.getMark();
     this.removeEventListener("click", mark);
     counter++;
-    setTimeout(checkWinners, 1000);
+    setTimeout(checkWinners(this.innerText), 1000);
   }
 
   // Reset gameboard to default state
   function reset() {
+    counter = 0;
+    // Prompt starting player to make first move
+    document.querySelector(".action-prompt").innerText =
+      player1.getName() + "'s turn.";
     // Clear all array elements
     for (let i = 0; i < gridSquares.length; i++) {
       gridSquares[i].innerText = "";
       grid[i] = "";
-      counter = 1;
     }
 
     // Delete grid squares then readd
@@ -108,7 +111,7 @@ let gameboard = (function createGameboard() {
   }
 
   // Check for winners
-  function checkWinners() {
+  function checkWinners(symbol) {
     if (
       // Horizontal wins
       (grid[0] == grid[1] && grid[0] == grid[2] && grid[0] !== "") ||
@@ -123,7 +126,10 @@ let gameboard = (function createGameboard() {
       (grid[2] == grid[4] && grid[2] == grid[6] && grid[2] !== "")
     ) {
       // Declare winner and show reset button
-      gameboardContainer.innerHTML = "<h1>Winner</h1>";
+      gameboardContainer.innerHTML =
+        symbol === player1.getMark()
+          ? `<h1>${player1.getName()} Wins!</h1>`
+          : `<h1>${player2.getName()} Wins!</h1>`;
       addResetButton();
     }
     // Check if all squares have been filled and no winner declared
