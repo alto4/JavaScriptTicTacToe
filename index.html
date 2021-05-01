@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TicTacToe</title>
+  <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -14,7 +14,22 @@
 
     <!-- Menu -->
     <div class="menu">
-      <h1>TicTacToe</h1>
+      <h1>Tic Tac Toe</h1>
+
+      <p>Please enter names of the players below.</p>
+
+      <div class="player-forms">
+        <form class="player-1-form">
+          <label for="player-1-name">Player 1:</label>
+          <input type="text" name="player-1" />
+        </form>
+
+        <form class="player-2-form">
+          <label for="player-2-name">Player 2:</label>
+          <input type="text" name="player-2" />
+        </form>
+      </div>  
+
       <button class="btn btn-play">
         Play
       </button>
@@ -24,7 +39,10 @@
     <div class="scoreboard"></div>
     
     <!-- Gameboard -->
-    <div class="gameboard"></div>
+    
+    <h2 class="action-prompt">s</h2>
+    <div class="gameboard">
+    </div>
   </div>
   
   <script src="main.js"></script>

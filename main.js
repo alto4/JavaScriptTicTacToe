@@ -1,11 +1,43 @@
+let player1;
+let player2;
+
 let controller = (function gameboardController() {
   let mainMenu = document.querySelector(".menu");
   let playButton = document.querySelector(".btn-play");
 
   playButton.addEventListener("click", () => {
+    player1 = playerFactory(
+      document.querySelector("[name=player-1]").value,
+      "X"
+    );
+    player2 = playerFactory(
+      document.querySelector("[name=player-2]").value,
+      "O"
+    );
+
+    // Prompt starting player to make first move
+    document.querySelector(".action-prompt").innerText =
+      player1.getName() + "'s turn.";
     mainMenu.hidden = true;
+
+    return { player1, player2 };
   });
+
+  return { player1, player2 };
 })();
+
+// Player factory
+const playerFactory = (name, mark) => {
+  const getName = () => {
+    return name;
+  };
+
+  const getMark = () => {
+    return mark;
+  };
+
+  return { getName, getMark };
+};
 
 // Create gameboard and add all associated event listeners
 let gameboard = (function createGameboard() {
@@ -38,11 +70,16 @@ let gameboard = (function createGameboard() {
 
   // Mark clicked square if active
   function mark() {
-    grid[this.dataset.id] = counter % 2 === 0 ? "X" : "O";
-    this.innerText = counter % 2 === 0 ? "X" : "O";
+    document.querySelector(".action-prompt").innerText =
+      (counter + 1) % 2 === 0
+        ? player1.getName() + "'s turn."
+        : player2.getName() + "'s turn.";
+    grid[this.dataset.id] =
+      (counter + 1) % 2 === 0 ? player1.getMark() : player2.getMark();
+    this.innerText = counter % 2 === 0 ? player1.getMark() : player2.getMark();
     this.removeEventListener("click", mark);
     counter++;
-    setTimeout(checkWinners, 500);
+    setTimeout(checkWinners, 1000);
   }
 
   // Reset gameboard to default state
@@ -89,9 +126,8 @@ let gameboard = (function createGameboard() {
       gameboardContainer.innerHTML = "<h1>Winner</h1>";
       addResetButton();
     }
-
     // Check if all squares have been filled and no winner declared
-    if (grid.indexOf("") == -1) {
+    else if (grid.indexOf("") == -1) {
       // Declare a draw and show reset button
       gameboardContainer.innerHTML = "<h1>It's a draw.</h1>";
       addResetButton();
