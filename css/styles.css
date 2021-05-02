@@ -139,3 +139,10 @@ h1 {
   transform: scale(1.03);
   cursor: pointer;
 }
+
+@media(max-width: 670px) {
+  .player-forms {
+    display: block;
+    justify-content: center;
+  }
+}
