@@ -8,11 +8,15 @@ const ticTacToe = (function () {
 
     playButton.addEventListener("click", () => {
       player1 = playerFactory(
-        document.querySelector("[name=player-1]").value,
+        document.querySelector("[name=player-1]").value.length > 0
+          ? document.querySelector("[name=player-1]").value
+          : "Player 1",
         "X"
       );
       player2 = playerFactory(
-        document.querySelector("[name=player-2]").value,
+        document.querySelector("[name=player-2]").value.length > 0
+          ? document.querySelector("[name=player-2]").value
+          : "Player 2",
         "O"
       );
 
@@ -133,12 +137,14 @@ const ticTacToe = (function () {
             ? `<h1>${player1.getName()} Wins!</h1>`
             : `<h1>${player2.getName()} Wins!</h1>`;
         addResetButton();
+        document.querySelector(".action-prompt").innerText = "Game Over.";
       }
       // Check if all squares have been filled and no winner declared
       else if (grid.indexOf("") == -1) {
         // Declare a draw and show reset button
         gameboardContainer.innerHTML = "<h1>It's a draw.</h1>";
         addResetButton();
+        document.querySelector(".action-prompt").innerText = "Game Over.";
       }
 
       // Add reset button and associated click event to start a new game
